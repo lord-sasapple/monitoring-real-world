@@ -13,8 +13,10 @@ export default function () {
 
         // overwrite nuxt.server.listen()
         const PORT = process.env.PORT || 3000;
+        const HOST = process.env.HOST || '0.0.0.0'
+
         this.nuxt.server.listen = (port, host) => new Promise(resolve => {
-            server.listen(PORT, host || 'localhost', resolve)
+            server.listen(PORT, HOST, resolve)
         })
         // close this server on 'close' event
         this.nuxt.hook('close', () => new Promise(server.close))
