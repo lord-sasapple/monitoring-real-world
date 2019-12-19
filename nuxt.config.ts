@@ -1,5 +1,10 @@
-export default {
-  env: {},
+import {Configuration} from '@nuxt/types'
+
+const nuxtConfig = {
+  mode: 'universal',
+  env: {
+    WS_URL: process.env.WS_URL || 'http://localhost:3000'
+  },
   head: {
     title: "monitoring-real-world",
     meta: [
@@ -13,10 +18,16 @@ export default {
   },
   loading: { color: "#3B8070" },
   css: ["~/assets/css/main.css"],
-  build: {},
+  build: {
+    vendor: ['socket.io-client']
+  },
   buildModules: ["@nuxt/typescript-build"],
   modules: [
     "@nuxtjs/axios",
+    "~/io",
   ],
-  axios: {}
+  axios: {},
+  serverMiddleware: ['~/api/index.ts'],
 }
+
+module.exports = nuxtConfig

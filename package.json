@@ -4,10 +4,19 @@
   "version": "2.11.0",
   "private": true,
   "dependencies": {
-    "@nuxtjs/axios": "5.9.0",
     "@nuxt/typescript-runtime": "0.3.2",
+    "@nuxtjs/axios": "5.9.0",
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.21",
+    "@types/socket.io": "^2.1.4",
+    "@types/socket.io-client": "^1.4.32",
+    "dgram": "^1.0.1",
+    "http": "0.0.0",
+    "node-osc": "^4.1.4",
     "nuxt": "2.11.0",
     "nuxt-property-decorator": "2.5.0",
+    "oscsocket": "^0.1.8",
+    "socket.io": "^2.3.0",
     "vuex-class": "0.3.2"
   },
   "scripts": {
