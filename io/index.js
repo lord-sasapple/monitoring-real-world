@@ -3,7 +3,9 @@ import socketIO from 'socket.io'
 var osc = require('node-osc');
 
 
-var oscServer = new osc.Server(5000);
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0'
+var oscServer = new osc.Server(PORT, HOST);
 
 
 export default function () {
@@ -12,8 +14,6 @@ export default function () {
         const io = socketIO(server)
 
         // overwrite nuxt.server.listen()
-        const PORT = process.env.PORT || 3000;
-        const HOST = process.env.HOST || '0.0.0.0'
 
         this.nuxt.server.listen = (port, host) => new Promise(resolve => {
             server.listen(PORT, HOST, resolve)
@@ -24,6 +24,7 @@ export default function () {
         // Add socket.io events
         const messages = []
         io.on('connection', (socket) => {
+            io.emit('port_num', PORT);
             socket.on('last-messages', function (fn) {
                 fn(messages.slice(-50))
             })
@@ -32,6 +33,8 @@ export default function () {
                 socket.broadcast.emit('new-message', message)
             })
         })
+
+        console.log('oscServer', oscServer);
 
         oscServer.on("message", function (msg, rinfo) {
 

@@ -14,6 +14,9 @@ import socket from '~/plugins/socket.io.ts'
 
 export default {
     mounted() {
+        socket.on('port_num',function(data:any){
+            console.log(data)
+        })
         socket.on('recive_beat',function(data:any){
             console.log(data)
         })
