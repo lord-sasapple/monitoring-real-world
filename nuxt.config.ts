@@ -2,7 +2,7 @@ import {Configuration} from '@nuxt/types'
 
 const nuxtConfig = {
   router: {
-    base: 'monitoring-real-world-hosting'
+    base: 'monitoring-real-world'
   },
   mode: 'universal',
   env: {
