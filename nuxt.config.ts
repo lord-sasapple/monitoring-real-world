@@ -1,6 +1,9 @@
 import {Configuration} from '@nuxt/types'
 
 const nuxtConfig = {
+  router: {
+    base: 'monitoring-real-world-hosting'
+  },
   mode: 'universal',
   env: {
     WS_URL: process.env.WS_URL || 'http://localhost:3000'

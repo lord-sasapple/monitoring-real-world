@@ -25,13 +25,15 @@
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "generate": "nuxt-ts generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "0.5.1",
     "css-loader": "^3.4.0",
     "node-sass": "^4.13.0",
     "nuxt-sass-resources-loader": "^2.0.5",
+    "push-dir": "^0.4.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.2",
     "vue-loader": "^15.8.3",
