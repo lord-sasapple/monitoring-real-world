@@ -4,6 +4,7 @@ var osc = require('node-osc');
 var oscsender = require('omgosc');
 // var sender = new oscsender('133.27.22.27', 57111);
 var sender = new oscsender.UdpSender('133.27.22.27', 10000);
+var receiver = new oscsender.UdpReceiver(7777);
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0'
@@ -46,11 +47,14 @@ export default function () {
                     'sfiTFNI',
                     ['hello', 3, 1, true, false, null, undefined]
                 );
-            })
+            });
         })
 
         console.log('oscServer', oscServer);
-
+        receiver.on('message', function(e) {
+            // console.log('eeee',e);
+            io.emit('recive_beat', e);
+        });
         oscServer.on("message", function (msg, rinfo) {
 
             // console.log(msg);
