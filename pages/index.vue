@@ -1,6 +1,7 @@
 <template>
     <section>
         <h1 class="header">Nuxt TypeScript Starter</h1>
+        <button @click="emitSocket">click!</button>
     </section>
 </template>
 
@@ -17,11 +18,17 @@ export default {
         socket.on('port_num',function(data:any){
             console.log(data)
         })
+        socket.on('host_name',function(data:any){
+            console.log(data)
+        })
         socket.on('recive_beat',function(data:any){
             console.log(data)
         })
     },
     methods: {
+        emitSocket(){
+            socket.emit('click', 'clicked!')
+        }
     },
 }
 

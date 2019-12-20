@@ -1,11 +1,14 @@
 import http from 'http'
 import socketIO from 'socket.io'
 var osc = require('node-osc');
-
+var oscsender = require('omgosc');
+// var sender = new oscsender('133.27.22.27', 57111);
+var sender = new oscsender.UdpSender('133.27.22.27', 10000);
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0'
 var oscServer = new osc.Server(PORT, HOST);
+// var oscClient = new osc.Client('133.27.22.27', 57111)
 
 
 export default function () {
@@ -25,12 +28,24 @@ export default function () {
         const messages = []
         io.on('connection', (socket) => {
             io.emit('port_num', PORT);
+            io.emit('host_name', HOST)
             socket.on('last-messages', function (fn) {
                 fn(messages.slice(-50))
             })
             socket.on('send-message', function (message) {
                 messages.push(message)
                 socket.broadcast.emit('new-message', message)
+            })
+            socket.on('click', (msg) => {
+                console.log(msg)
+                // oscClient.send('/test', 'testing', 'testing', 123);
+
+                //'133.27.22.27', 57111
+                sender.send(
+                    '/test',
+                    'sfiTFNI',
+                    ['hello', 3, 1, true, false, null, undefined]
+                );
             })
         })
 

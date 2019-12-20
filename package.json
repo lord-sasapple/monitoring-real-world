@@ -15,6 +15,8 @@
     "node-osc": "^4.1.4",
     "nuxt": "2.11.0",
     "nuxt-property-decorator": "2.5.0",
+    "omgosc": "^1.0.0",
+    "osc": "^2.3.1",
     "oscsocket": "^0.1.8",
     "socket.io": "^2.3.0",
     "vuex-class": "0.3.2"
