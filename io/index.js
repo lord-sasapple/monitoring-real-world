@@ -3,7 +3,7 @@ import socketIO from 'socket.io'
 var osc = require('node-osc');
 var oscsender = require('omgosc');
 // var sender = new oscsender('133.27.22.27', 57111);
-var sender = new oscsender.UdpSender('133.27.22.27', 10000);
+var sender = new oscsender.UdpSender('133.27.78.102', 10000);
 var receiver = new oscsender.UdpReceiver(7777);
 
 const PORT = process.env.PORT || 3000;
