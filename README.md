@@ -18,3 +18,5 @@ $ npm start
 $ npm run generate
 ```
 
+## deploy
+master に push されたら自動で heroku にデプロイされます
