@@ -9,8 +9,7 @@ var receiver = new oscsender.UdpReceiver(7777);
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0'
 var oscServer = new osc.Server(PORT, HOST);
-// var oscClient = new osc.Client('133.27.22.27', 57111)
-
+var oscClient = new osc.Client('133.27.22.27', 57111)
 
 export default function () {
     this.nuxt.hook('render:before', (renderer) => {
@@ -49,15 +48,9 @@ export default function () {
                 );
             });
         })
-
-        console.log('oscServer', oscServer);
-        receiver.on('message', function(e) {
-            // console.log('eeee',e);
-            io.emit('recive_beat', e);
-        });
         oscServer.on("message", function (msg, rinfo) {
 
-            // console.log(msg);
+            console.log(msg);
             for(var i=0; i<msg.length; i++) {
                 // console.log(msg[i]);
             }

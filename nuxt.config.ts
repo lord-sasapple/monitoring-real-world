@@ -24,7 +24,7 @@ const nuxtConfig = {
   buildModules: ["@nuxt/typescript-build"],
   modules: [
     "@nuxtjs/axios",
-    // "~/io",
+    "~/io",
   ],
   axios: {},
   serverMiddleware: ['~/api/index.ts'],
