@@ -11,6 +11,54 @@ const HOST = process.env.HOST || '0.0.0.0'
 var oscServer = new osc.Server(PORT, HOST);
 var oscClient = new osc.Client('133.27.22.27', 57111)
 
+let images = [
+    "http://180.52.63.216:50000/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579209520.jpg",
+    "http://128.28.102.107:6002/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1579210038.jpg",
+    "http://106.172.137.40:8001/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579205816.jpg",
+    "http://126.165.128.155:50000/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1579208953.jpg",
+    "http://120.51.171.150/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579210125.jpg",
+];
+
+const insecam = require('insecam-api');
+
+const getNewCam = () => {
+    return new Promise((resolve, reject)=>{
+        insecam.countries.then((res)=>{
+            const countries = Object.entries(res);
+            const randomCountry = countries[Math.floor(Math.random() * countries.length)][0];
+            insecam.country(randomCountry).then((res)=>{
+                insecam.camera(res[0]).then((res)=>{
+                    switch (res.manufacturer){
+                        case "Defeway":
+                            images.push(res.image);
+                            resolve(res.image)
+                            break;
+                        case "Panasonic":
+                            images.push(res.image);
+                            resolve(res.image)
+                            break;
+                        case "Vivotek":
+                            images.push(res.image);
+                            resolve(res.image)
+                            break;
+                        case "Megapixel":
+                            images.push(res.image);
+                            resolve(res.image)
+                            break;
+                        default:
+                            getNewCam()
+                            break;
+                    }
+                });
+            }).catch((err)=>{
+                reject(err);
+            });
+        }).catch((err)=>{
+            reject(err);
+        });
+    });
+}
+
 export default function () {
     this.nuxt.hook('render:before', (renderer) => {
         const server = http.createServer(this.nuxt.renderer.app)
@@ -51,10 +99,9 @@ export default function () {
         oscServer.on("message", function (msg, rinfo) {
 
             console.log(msg);
-            for(var i=0; i<msg.length; i++) {
-                // console.log(msg[i]);
-            }
-            io.emit('recive_beat', msg[1]);
+            const randomImg = images[Math.floor(Math.random() * images.length)]
+            io.emit('recive_beat', randomImg);
+            getNewCam()
         });
     })
 }

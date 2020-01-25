@@ -2,6 +2,7 @@
     <section>
         <h1 class="header">Nuxt TypeScript Starter</h1>
         <button @click="emitSocket">click!</button>
+        <img :src="this.imgUrl" alt="">
     </section>
 </template>
 
@@ -12,11 +13,12 @@ import {
 } from "nuxt-property-decorator"
 import { State } from "vuex-class"
 import socket from '~/plugins/socket.io.ts'
-const insecam = require('insecam-api');
 
 @Component
 export default class extends Vue{
+    imgUrl:string = '';
     mounted() {
+        const self = this
         socket.on('port_num',function(data:any){
             console.log(data)
         })
@@ -25,6 +27,7 @@ export default class extends Vue{
         })
         socket.on('recive_beat',function(data:any){
             console.log(data)
+            self.imgUrl = data;
         })
     }
     emitSocket(){
