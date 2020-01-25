@@ -15,7 +15,6 @@ let images = [
     "http://180.52.63.216:50000/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579209520.jpg",
     "http://128.28.102.107:6002/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1579210038.jpg",
     "http://106.172.137.40:8001/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579205816.jpg",
-    "http://126.165.128.155:50000/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1579208953.jpg",
     "http://120.51.171.150/SnapshotJPEG?Resolution=640x480&amp;Quality=Clarity&amp;1579210125.jpg",
 ];
 
