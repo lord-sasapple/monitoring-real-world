@@ -1,46 +1,59 @@
-// var osc = require('node-osc');
+const express = require('express');
+const app = express();
+import http from 'http'
 
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
 
-// import express from 'express';
-// import http from "http";
-// import socketio from "socket.io";
+const Canvas = require('canvas'),
+    Image = Canvas.Image;
 
-// const host:any = process.env.HOST || '0.0.0.0'
-// const port = process.env.PORT || 3000
+app.get("/detect", (req:any, res:any) => {
+    detectImg(req.query.url).then((result)=>{
+        res.json(result)
+    }).catch(err=>{
+        res.send('sorry...')
+    })
+})
 
-// const app: express.Express = express();
+module.exports = {
+    path: '/api',
+    handler: app
+}
 
-// const server = http.createServer(app)
-// const io: socketio.Server = socketio(server);
+function detectImg(url:string){
+    return new Promise ((resolve, rejcet)=>{
+        loadImage(url).then((avater:any)=>{
+            var canvas = Canvas.createCanvas(avater.width, avater.height);
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(avater, 0, 0, avater.width, avater.height);
+            // tf.browser.fromPixels(canvas).print();
+            cocoSsd.load().then((model)=>{
+                model.detect(canvas).then((predictions)=>{
+                    resolve(predictions)
+                }).catch((err)=>{
+                    console.log('err', err)
+                    rejcet(err)
+                })
+            }).catch((err)=>{
+                rejcet(err)
+            })
+        })
+    })
+}
 
-// server.listen(port, host);
-
-
-// var sendCount = 0;
-// // var oscClient = new osc.Client('133.27.78.91', 6000);
-// var oscServer = new osc.Server(5000);
-
-
-// oscServer.on("message", function (msg:any, rinfo:any) {
-
-//     console.log(msg);
-//     for(var i=0; i<msg.length; i++) {
-//         console.log(msg[i]);
-//     }
-//     var sendMsg =  new osc.Message('/address');
-//     sendMsg.append("test");
-//     sendMsg.append(sendCount);
-//     // oscClient.send(sendMsg);
-//     sendCount++;
-// });
-
-// io.on("connection", (socket: socketio.Socket) => {
-//     console.log('cc')
-//     io.emit('recive_beat', 'aa');
-// });
-
-// module.exports = { path: '/api', handler: app }
-// app.get('/hello', (req:any, res:any) => {
-//     console.log('hello nuxt in text')
-//     res.send('world')
-// })
+function loadImage (url:string) {
+    return new Promise((resolve, reject) => {
+        const img = new Canvas.Image()
+    
+        img.onload = () => resolve(img)
+        img.onerror = () => reject(new Error('Failed to load image'))
+    
+        http.get(url, (res) => {
+            let chunks:Uint8Array[] = []
+    
+            res.on('error', (err) => { reject(err) })
+            res.on('data', (chunk) => { chunks.push(chunk) })
+            res.on('end', () => { img.src = Buffer.concat(chunks) })
+        })
+    })
+}
