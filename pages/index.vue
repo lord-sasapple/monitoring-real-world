@@ -1,9 +1,9 @@
 <template>
-    <section>
-        <h1 class="header">Nuxt TypeScript Starter</h1>
-        <button @click="emitSocket">click!</button>
+    <div>
+        <h1 class="header" v-if="this.imgUrl === ''">monitoring-real-world</h1>
+        <!-- <button @click="emitSocket">click!</button> -->
         <img :src="this.imgUrl" alt="">
-    </section>
+    </div>
 </template>
 
 <script lang="ts">
@@ -46,5 +46,18 @@ export default class extends Vue{
 .cards {
     display: flex;
     flex-wrap: wrap;
+}
+
+h1{
+    color: white;
+}
+
+div {
+    background: black;
+}
+
+
+img{
+    width: 100%;
 }
 </style>
