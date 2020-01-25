@@ -12,8 +12,10 @@ import {
 } from "nuxt-property-decorator"
 import { State } from "vuex-class"
 import socket from '~/plugins/socket.io.ts'
+const insecam = require('insecam-api');
 
-export default {
+@Component
+export default class extends Vue{
     mounted() {
         socket.on('port_num',function(data:any){
             console.log(data)
@@ -24,12 +26,10 @@ export default {
         socket.on('recive_beat',function(data:any){
             console.log(data)
         })
-    },
-    methods: {
-        emitSocket(){
-            socket.emit('click', 'clicked!')
-        }
-    },
+    }
+    emitSocket(){
+        socket.emit('click', 'clicked!')
+    }
 }
 
 

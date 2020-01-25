@@ -19,7 +19,12 @@ const nuxtConfig = {
   loading: { color: "#3B8070" },
   css: ["~/assets/css/main.css"],
   build: {
-    vendor: ['socket.io-client']
+    vendor: ['socket.io-client'],
+    extend (config:any) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
   },
   buildModules: ["@nuxt/typescript-build"],
   modules: [
