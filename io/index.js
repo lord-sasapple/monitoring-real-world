@@ -27,27 +27,29 @@ const getNewCam = () => {
             const randomCountry = countries[Math.floor(Math.random() * countries.length)][0];
             insecam.country(randomCountry).then((res)=>{
                 insecam.camera(res[0]).then((res)=>{
-                    switch (res.manufacturer){
-                        case "Defeway":
-                            images.push(res.image);
-                            resolve(res.image)
-                            break;
-                        case "Panasonic":
-                            images.push(res.image);
-                            resolve(res.image)
-                            break;
-                        case "Vivotek":
-                            images.push(res.image);
-                            resolve(res.image)
-                            break;
-                        case "Megapixel":
-                            images.push(res.image);
-                            resolve(res.image)
-                            break;
-                        default:
-                            getNewCam()
-                            break;
-                    }
+                    images.push(res.image);
+                    resolve(res.image)
+                    // switch (res.manufacturer){
+                    //     case "Defeway":
+                    //         images.push(res.image);
+                    //         resolve(res.image)
+                    //         break;
+                    //     case "Panasonic":
+                    //         images.push(res.image);
+                    //         resolve(res.image)
+                    //         break;
+                    //     case "Vivotek":
+                    //         images.push(res.image);
+                    //         resolve(res.image)
+                    //         break;
+                    //     case "Megapixel":
+                    //         images.push(res.image);
+                    //         resolve(res.image)
+                    //         break;
+                    //     default:
+                    //         getNewCam()
+                    //         break;
+                    // }
                 });
             }).catch((err)=>{
                 reject(err);

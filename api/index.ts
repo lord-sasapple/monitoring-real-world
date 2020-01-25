@@ -29,6 +29,7 @@ function detectImg(url:string){
             // tf.browser.fromPixels(canvas).print();
             cocoSsd.load().then((model)=>{
                 model.detect(canvas).then((predictions)=>{
+                    console.log(predictions)
                     resolve(predictions)
                 }).catch((err)=>{
                     console.log('err', err)
@@ -37,6 +38,8 @@ function detectImg(url:string){
             }).catch((err)=>{
                 rejcet(err)
             })
+        }).catch((err:any)=>{
+            rejcet(err)
         })
     })
 }
@@ -48,12 +51,13 @@ function loadImage (url:string) {
         img.onload = () => resolve(img)
         img.onerror = () => reject(new Error('Failed to load image'))
     
-        http.get(url, (res) => {
+        let req = http.get(url, (res) => {
             let chunks:Uint8Array[] = []
     
             res.on('error', (err) => { reject(err) })
             res.on('data', (chunk) => { chunks.push(chunk) })
             res.on('end', () => { img.src = Buffer.concat(chunks) })
         })
+        req.setTimeout(3000);
     })
 }
