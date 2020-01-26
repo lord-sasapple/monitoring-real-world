@@ -102,6 +102,7 @@ export default function () {
             console.log(msg);
             const randomImg = images[Math.floor(Math.random() * images.length)]
             io.emit('recive_beat', randomImg);
+            console.log(randomImg)
             getNewCam()
         });
     })

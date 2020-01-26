@@ -46,6 +46,9 @@ function detectImg(url:string){
 
 function loadImage (url:string) {
     return new Promise((resolve, reject) => {
+        if (!url){
+            reject('url is undefined')
+        }
         const img = new Canvas.Image()
     
         img.onload = () => resolve(img)
