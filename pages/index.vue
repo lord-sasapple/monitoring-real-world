@@ -3,13 +3,15 @@
         <h1 class="header" v-if="this.imgUrl === ''"
         crossorigin='anonymous'>monitoring-real-world</h1>
         <!-- <button @click="emitSocket">click!</button> -->
-        <div v-for="item in detectedArray" :key="item.id" class="detected-obj">
-            {{ item }}
+        <div class="text-wrapper">
+            <div v-for="item in detectedArray" :key="item.id" class="detected-obj">
+                {{ item }}
+            </div>
         </div>
         <img :src="this.imgUrl" alt="" id="img" width="1600px" height="900px">
-        <canvas id="imgCanvas" width="1600px" height="900px">
+        <!-- <canvas id="imgCanvas" width="1600px" height="900px">
         Your browser does not support the HTML5 canvas tag.
-        </canvas>
+        </canvas> -->
     </div>
 </template>
 
@@ -26,10 +28,10 @@ import axios from 'axios'
 export default class extends Vue{
     imgUrl:string = '';
     detectedArray:any = [];
-    canvas:any;
+    // canvas:any;
     isDetecting: boolean = false;
     mounted() {
-        this.canvas = document.getElementById("imgCanvas");
+        // this.canvas = document.getElementById("imgCanvas");
         const self = this
         socket.on('port_num',function(data:any){
             console.log(data)
@@ -62,6 +64,7 @@ export default class extends Vue{
                         self.detectedArray.push([res[4].class, res[4].score]);
                     }
                 }).catch((err:any)=>{
+                    self.isDetecting = false;
                     console.error(err);
                 });
             }
@@ -110,6 +113,7 @@ div {
 img{
     width: 100%;
     height: 100%;
+    mix-blend-mode: difference;
     // display: none;
 }
 
@@ -119,8 +123,15 @@ canvas{
     display: none;
 }
 
+.text-wrapper{
+    position: absolute;
+    background: transparent;
+}
+
 .detected-obj{
-    color: white;
+    color: #ce7272;
     font-weight: bold;
+    background: transparent;
+    font-size: 30px;
 }
 </style>

@@ -24,6 +24,7 @@ let images = [
     "http://61.214.197.204:1024/-wvhttp-01-/GetOneShot?image_size=640x480&frame_count=1000000000",
     "http://121.180.45.81/snap.jpg?JpegSize=M&JpegCam=1&r=1580005862",
     "http://113.35.143.114:50000/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1580006106",
+    "http://112.197.81.164:86/webcapture.jpg?command=snap&channel=1?1580008047",
     // "http://145.53.212.190:8001/mjpg/video.mjpg",
     // "http://118.111.199.166:83/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;0",
     // "http://126.149.232.164:50001/cgi-bin/camera?resolution=640&amp;quality=1&amp;Language=0&amp;1580000970",
@@ -122,7 +123,7 @@ export default function () {
         })
         oscServer.on("message", function (msg, rinfo) {
 
-            console.log(msg);
+            console.log('osc recived');
             const randomImg = images[Math.floor(Math.random() * images.length)]
             io.emit('recive_beat', randomImg);
             console.log(randomImg)
