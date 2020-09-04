@@ -38,7 +38,7 @@
   "devDependencies": {
     "@nuxt/typescript-build": "0.5.1",
     "css-loader": "^3.4.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nuxt-sass-resources-loader": "^2.0.5",
     "push-dir": "^0.4.1",
     "sass-loader": "^8.0.0",
