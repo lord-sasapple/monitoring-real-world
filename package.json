@@ -24,7 +24,7 @@
     "omgosc": "^1.0.0",
     "osc": "^2.3.1",
     "oscsocket": "^0.1.8",
-    "socket.io": "^2.4.0",
+    "socket.io": "^2.5.0",
     "tls": "0.0.1",
     "vuex-class": "0.3.2"
   },
